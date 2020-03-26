@@ -1,16 +1,13 @@
-from flask import Flask, request
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template
 import os
 
 app = Flask(__name__)
 
 app.config.from_object(os.environ['APP_SETTINGS'])
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-db = SQLAlchemy(app)
-
-from models import ComplaintsCompanies, ComplaintsUsers, Issues, Products
 
 @app.route("/")
 def hello():
-    return "Hey There !!"
+    try:
+        return "Hi there! This app still in progress, check this out later =D"
+    except Exception as e:
+	    return ('ERROR ' + str(e))
