@@ -1,13 +1,14 @@
 from flask import Flask, render_template
+from flask_restful import Resource, Api
 import os
 
 app = Flask(__name__)
+api = Api(app)
 
 app.config.from_object(os.environ['APP_SETTINGS'])
 
-@app.route("/")
-def hello():
-    try:
-        return "Hi there! This app still in progress, check this out later =D"
-    except Exception as e:
-	    return ('ERROR ' + str(e))
+class Index(Resource):
+    def get(self):
+        return render_template('index.html')
+
+api.add_resource(Index, '/')
