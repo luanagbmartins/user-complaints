@@ -1,7 +1,11 @@
 FROM python:3.6.7
 
-COPY . /app
+COPY ./app /app
 WORKDIR /app
 RUN pip install -r requirements.txt
 
-CMD gunicorn app:app --bind 0.0.0.0:$PORT --reload
+ENV APP_SETTINGS="config.DevelopmentConfig"
+ENV DATABASE_URL="postgresql:///user-complaints"
+ENV HEROKU_APP_NAME="user-complaints"
+
+CMD ["gunicorn", "app:app"]
