@@ -38,50 +38,23 @@
 									<h5>Let us know what's troubling you.</h5>
 								</div>
 								<hr border-color="#f44336">
-		                        <div>
+		                        <div class="wizard-header">
 		                        	<div class="tab-content">
-										<div class="tab-content">
-											<div class="row">
-												<div class="col-sm-6">
-													<div class="input-group">
-														<span class="input-group-addon">
-															<i class="material-icons">account_circle</i>
-														</span>
-														<div class="form-group label-floating">
-															<label class="control-label">Your Name</label>
-															<input id="name" name="name" type="text" class="form-control" required>
-														</div>
-													</div>
+										<div>
+											<div>
+												<h4>{{name}} your complaint was registry. Thank you for your feedback!</h4>
+												<div class="text-center">
+													<br>
+													<h4 class="wizard-title">Prediction and Probability</h4>
 												</div>
-												<div class="col-sm-6">
-													<div class="input-group">
-														<span class="input-group-addon">
-															<i class="material-icons">email</i>
-														</span>
-														<div class="form-group label-floating">
-															<label class="control-label">Your Email</label>
-															<input id="email" name="email" type="email" class="form-control" required>
-														</div>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-10 col-sm-offset-1">
-														<div class="form-group">
-															<label>Complaint</label>
-															<textarea id="complaint" name="complaint" class="form-control" placeholder="" rows="6" required></textarea>
-														</div>
-													</div>
+							
+												<div>
+													<h4>This complaint is of category '{{result}}'</h4>
+													<h4>Confidence of this prediction is {{confidence}}</h4>
 												</div>
 											</div>
 										</div>
-									</div>									
-									
-	                        	<div class="wizard-footer">
-									<div class="text-center">
-										<input class='btn btn-next btn-fill btn-danger btn-wd' type='submit' name='send' value='Send' />
 									</div>
-	                                <div class="clearfix"></div>
-	                        	</div>
 		                    </form>
 		                </div>
 		            </div> <!-- wizard container -->
