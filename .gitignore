@@ -130,3 +130,6 @@ dmypy.json
 
 # exclude data from source control by default
 /data/
+
+# Vscode config
+.vscode/
