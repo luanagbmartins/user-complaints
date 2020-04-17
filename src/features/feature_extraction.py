@@ -15,15 +15,15 @@ from data import PreprocessData
 class FeatureExtraction(luigi.Task):
 
     lowercase = luigi.BoolParameter()
-    tokenizer = luigi.OptionalParameter(default=None)
-    stop_words = luigi.OptionalParameter(default=None)
+    tokenizer = luigi.OptionalParameter(default = None)
+    stop_words = luigi.OptionalParameter(default = None)
     ngram_range = luigi.TupleParameter(default = (1,1))
     max_df = luigi.Parameter(default = '1.0')
     min_df = luigi.Parameter(default = '1')
-    max_features = luigi.OptionalParameter(default=None)
-    vocabulary = luigi.OptionalParameter(default=None)
+    max_features = luigi.OptionalParameter(default = None)
+    vocabulary = luigi.OptionalParameter(default = None)
     binary = luigi.BoolParameter()
-    norm = luigi.ChoiceParameter(choices=['l1', 'l2', 'none'], default='l2')
+    norm = luigi.ChoiceParameter(choices = ['l1', 'l2', 'none'], default = 'l2')
     use_idf = luigi.BoolParameter()
     smooth_idf = luigi.BoolParameter()
     sublinear_tf = luigi.BoolParameter()
@@ -41,8 +41,8 @@ class FeatureExtraction(luigi.Task):
         return PreprocessData()
     
     def output(self):
-        return { 'features': luigi.LocalTarget('data/processed/features.pkl'),
-                 'labels': luigi.LocalTarget('data/processed/labels.pkl') }
+        return { 'features': luigi.LocalTarget('data/processed/features.pickle'),
+                 'labels': luigi.LocalTarget('data/processed/labels.pickle') }
 
     def run(self):
         print('---> Extracting features...')
