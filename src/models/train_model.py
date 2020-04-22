@@ -1,12 +1,13 @@
 import os
 import sys
 import ast
+import json
 import luigi
 import pickle
 import datetime
 
-import seaborn as sns
 from sklearn.model_selection import train_test_split
+# from sklearn.model_selection import StratifiedKFold
 
 sys.path.append('src')
 from features import FeatureExtraction
@@ -47,6 +48,9 @@ class TrainModel(luigi.Task):
             train_test_split(features, labels, test_size = self.test_size, 
                              random_state = self.random_state, shuffle = self.shuffle)
 
+        # TODO
+        # kfold = StratifiedKFold(n_splits=10, shuffle=True)
+
         if self.selected_model == 'random_forest':
             model = RandomForestModel( n_estimators = self.n_estimators, 
                                        max_depth = self.max_depth,
@@ -58,18 +62,22 @@ class TrainModel(luigi.Task):
 
         print('---> Training model', model.name)
         model.train(train_features, train_labels)
-        accuracy, figures = model.score(test_features, test_labels)
+        results, figures = model.score(test_features, test_labels)
 
         print('---> Saving Model')
-        output_name = model.name + '||Accuray=' + str(round(accuracy, 2))
+        output_name = model.name + '||Accuray=' + str(round(results['accuracy'], 2))
         output_name += '||' + datetime.datetime.now().strftime('%d_%m_%Y_%H_%M_%S')
         save_folder = os.path.join('models', output_name)
         if not os.path.exists(save_folder):
             os.makedirs(save_folder)
 
+        with open(os.path.join(save_folder, 'results.json'), 'w') as fp:
+            json.dump(results, fp)
+
         for key in figures:
             with open(os.path.join(save_folder, str(key+'.png')), 'w') as fp:
                 figures.savefig(fp)
+
         with open(os.path.join(save_folder, 'model.pickle'), 'wb') as fp:
             pickle.dump(model, fp)
 

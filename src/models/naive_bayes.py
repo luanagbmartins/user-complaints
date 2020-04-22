@@ -2,9 +2,9 @@ import sys
 import numpy as np
 import pandas as pd
 
-import seaborn as sns
-from sklearn.metrics import confusion_matrix
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import accuracy_score, precision_score, recall_score
+
 
 class NaiveBayesModel(object):
 
@@ -24,19 +24,20 @@ class NaiveBayesModel(object):
 
     def score(self, features, labels):
         predictions = self.model.predict(features)
-        predictions_conf = self.model.predict_proba(features)
-
-        predictions_conf_df = pd.DataFrame( predictions_conf, 
-                                            index = range(predictions_conf.shape[0]),
-                                            columns = range(predictions_conf.shape[1]) )
-
-        predictions_conf_df['predicted_conf'] = predictions_conf_df.max(axis = 1)
         
-        results = pd.DataFrame(data = {"actual_label": labels, "predicted_label": predictions})
-        results = pd.concat([results, predictions_conf_df['predicted_conf']], axis=1)
+        accuracy = accuracy_score(labels, predictions)
+        precision = precision_score(labels, predictions, average='macro')
+        recall = recall_score(labels, predictions, average='macro')
 
-        results['correctly_predicted'] = np.where(results['actual_label'] == results['predicted_label'], 1, 0)
-        accuracy = (results['correctly_predicted'].sum() / results.shape[0]) * 100
+        results = {
+            'params': self.get_params(),
+            'model': self.name,
+            'accuracy': accuracy,
+            'precision': precision,
+            'recall': recall
+        }
+
         print('---> Accuracy obtained is: {0:.2f}%'.format(accuracy))
 
-        return accuracy
+        figures = {}
+        return results, figures
