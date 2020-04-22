@@ -51,6 +51,8 @@ def process_text(complaint):
 
     cleaned_complaint = clean_up(complaint)
 
+    print(os.listdir(.))
+
     with open('../data/processed/tfidf/vectorizer.pickle', 'rb') as file:
         vectorizer = pickle.load(file)
     with open('../models/model.pickle', 'rb') as file:
