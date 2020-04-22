@@ -1,7 +1,9 @@
+import os
 import sys
 import ast
 import luigi
 import pickle
+import datetime
 
 import seaborn as sns
 from sklearn.model_selection import train_test_split
@@ -59,15 +61,15 @@ class TrainModel(luigi.Task):
         accuracy, figures = model.score(test_features, test_labels)
 
         print('---> Saving Model')
-        output_name = self.selected_model + '-Accuray=' + str(accuracy)
-        output_name += '-' + datetime.datetime.now().strftime('%d_%m_%Y_%H_%M_%S')
-        save_folder = os.path.join(models, output_name)
+        output_name = model.name + '||Accuray=' + str(round(accuracy, 2))
+        output_name += '||' + datetime.datetime.now().strftime('%d_%m_%Y_%H_%M_%S')
+        save_folder = os.path.join('models', output_name)
         if not os.path.exists(save_folder):
             os.makedirs(save_folder)
 
         for key in figures:
             with open(os.path.join(save_folder, str(key+'.png')), 'w') as fp:
-                confusion.savefig(fp)
+                figures.savefig(fp)
         with open(os.path.join(save_folder, 'model.pickle'), 'wb') as fp:
             pickle.dump(model, fp)
 
