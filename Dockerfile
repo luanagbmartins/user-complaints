@@ -4,21 +4,19 @@ RUN mkdir /user-complaints
 WORKDIR /user-complaints
 
 RUN mkdir app
-COPY ./app /app
+COPY ./app user-complaints/app
 
 RUN mkdir data
-COPY ./data /data
+COPY ./data user-complaints/data
 
 RUN mkdir models
-COPY ./models /models
-
-RUN ls
+COPY ./models user-complaints/models
 
 RUN pip install flask gunicorn
-RUN pip install -r app/requirements.txt
+RUN pip install -r user-complaints/app/requirements.txt
 
 ENV APP_SETTINGS="config.DevelopmentConfig"
 ENV DATABASE_URL="postgresql:///user-complaints"
 ENV HEROKU_APP_NAME="user-complaints"
 
-CMD ["gunicorn", "app/app:app"]
+CMD ["gunicorn", "user-complaints/app/app:app"]
