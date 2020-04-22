@@ -80,7 +80,7 @@ class PreprocessData(luigi.Task):
 class RawData(luigi.Task):
 
     def requires(self):
-        None
+        return None
     
     def output(self):
         return { 'raw': luigi.LocalTarget('data/raw/raw_data.pickle'),
