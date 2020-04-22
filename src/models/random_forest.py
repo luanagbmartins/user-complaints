@@ -40,35 +40,6 @@ class RandomForestModel(object):
         accuracy = (results['correctly_predicted'].sum() / results.shape[0]) * 100
         print('---> Accuracy obtained is: {0:.2f}%'.format(accuracy))
 
-        # Confusion Matrix
-        confusion = confusion_matrix(labels, predictions)
-        sns_plot = sns.heatmap(confusion, annot=True, fmt='g', cmap='Blues')
-        sns_plot.set(ylabel = 'Valor verdadeiro')
-        sns_plot.set(xlabel = 'Valor previsto')
-        labels = [ 'Verdadeiro Negativo', 
-                   'Falso Positivo', 
-                   'Falso Negativo', 
-                   'Verdadeiro Positivo' ]
-        sns_plot.set(yticklabels = ['Negativo','Positivo'])
-        sns_plot.set(xticklabels = ['Negativo','Positivo'])
-        count = 0
-        bacc = []
-        for idx, text in enumerate(sns_plot.texts):
-            label = int(text.get_text())
-            count += label
-            bacc.append(label)
-
-        acc1 = bacc[0] / ( bacc[0] + bacc[2] )
-        acc2 = bacc[3] / ( bacc[1] + bacc[3] ) 
-        balanced_accuracy = ( acc1 + acc2 ) / 2
-        for idx, text in enumerate(sns_plot.texts):
-            square = text.get_text()
-            percent = int(text.get_text()) / count
-            percent = "{0:.0%}".format(percent)
-            box_text = "{0}: \n \n {1} \n \n {2}".format(labels[idx], square, percent)
-            text.set_text(box_text)
-        sns_plot.set_title('Matriz de Confusão')
-
-        figures = {'confusion_matrix': sns_plot}
+        figures = {}
 
         return accuracy, figures
