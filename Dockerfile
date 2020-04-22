@@ -1,8 +1,17 @@
 FROM python:3.6.7
 
+RUN mkdir /user-complaints
+WORKDIR /user-complaints
+
+RUN mkdir /app
 COPY ./app /app
+
+RUN mkdir /data
 COPY ./data /data
+
+RUN mkdir /models
 COPY ./models /models
+
 WORKDIR /app
 RUN pip install flask gunicorn
 RUN pip install -r requirements.txt
