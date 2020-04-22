@@ -51,19 +51,19 @@ def process_text(complaint):
 
     cleaned_complaint = clean_up(complaint)
 
-    with open('./data/processed/tfidf/vectorizer.pickle', 'rb') as file:
+    with open('../data/processed/tfidf/vectorizer.pickle', 'rb') as file:
         vectorizer = pickle.load(file)
-    with open('./models/model.pickle', 'rb') as file:
+    with open('../models/model.pickle', 'rb') as file:
         model = pickle.load(file)
 
     in_ = vectorizer.transform(cleaned_complaint)
     prediction = model.predict(in_)
 
-    with open('./data/external/product_id_to_category.json', 'r') as file:
+    with open('../data/external/product_id_to_category.json', 'r') as file:
         product_id_to_category = json.load(file)
-    with open('./data/external/main_id_to_category.json', 'r') as file:
+    with open('../data/external/main_id_to_category.json', 'r') as file:
         main_id_to_category = json.load(file)
-    with open('./data/external/sub_id_to_category.json', 'r') as file:
+    with open('../data/external/sub_id_to_category.json', 'r') as file:
         sub_id_to_category = json.load(file)
 
     category = product_id_to_category[str(prediction[0])]
