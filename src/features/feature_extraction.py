@@ -53,13 +53,12 @@ class FeatureExtraction(luigi.Task):
     def run(self):
         print('---> Extracting features...')
         data = pd.read_pickle(self.input().path)
-        features, labels = self.feature_extraction(data)
+        vectorizer, features, labels = self.feature_extraction(data)
 
+        pickle.dump(vectorizer, open(os.path.join(self.save_folder, 'vectorizer.pickle'), 'wb'))
         pickle.dump(features, open(os.path.join(self.save_folder, 'features.pickle'), 'wb'))
         pickle.dump(labels, open(os.path.join(self.save_folder, 'labels.pickle'), 'wb'))
         
-        print('Done!')
-
     def feature_extraction(self, data):
         if self.method == 'tfidf':
             return self.tfidf(data)
@@ -88,8 +87,7 @@ class FeatureExtraction(luigi.Task):
         features = tfidf_converter.fit_transform(data.complaints_untokenized)
         print('---> Each of the %d complaints is represented by %d features (TF-IDF score of unigrams and bigrams)' %(features.shape))
 
-        return features, labels
+        return tfidf_converter, features, labels
 
         def word2vec(self, data):
-            # TODO 
-            pass
+            raise NotImplementedError
