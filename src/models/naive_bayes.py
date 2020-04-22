@@ -1,4 +1,5 @@
 import sys
+import pickle
 import numpy as np
 import pandas as pd
 
@@ -37,7 +38,11 @@ class NaiveBayesModel(object):
             'recall': recall
         }
 
-        print('---> Accuracy obtained is: {0:.2f}%'.format(accuracy))
+        print('---> Accuracy obtained is: {0:.2f}%'.format(accuracy*100))
 
         figures = {}
         return results, figures
+
+    def save(self, filename):
+        with open(filename, 'wb') as fp:
+            pickle.dump(self.model, fp)

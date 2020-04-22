@@ -78,8 +78,7 @@ class TrainModel(luigi.Task):
             with open(os.path.join(save_folder, str(key+'.png')), 'w') as fp:
                 figures.savefig(fp)
 
-        with open(os.path.join(save_folder, 'model.pickle'), 'wb') as fp:
-            pickle.dump(model, fp)
+        model.save(os.path.join(save_folder, 'model.pickle'))
 
 
 
