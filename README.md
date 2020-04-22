@@ -1,6 +1,8 @@
 # User Complaints Classification
 
-This is an NLP-based problem solving approach fot the dataset availaable as a consumer-complaint database dor the Banking sector.
+This is an NLP-based problem solving approach fot the dataset available as a consumer-complaint database for the Banking sector.
+
+https://user-complaints.herokuapp.com/
 
 ## User Complaints Classification Project
 
@@ -12,6 +14,7 @@ The rest of the project are structured like:
 ## Instructions
 
 To run locally go to ```app``` folder and run ```python manage.py runserver```. 
+To training models run ```train_model``` script.
 
 ## Examples
 
