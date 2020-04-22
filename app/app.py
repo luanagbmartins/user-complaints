@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template
-from services import fetch_prediction as fp
+import fetch_prediction as fp
 
 app = Flask(__name__)
 @app.route('/')
