@@ -1,0 +1,6 @@
+External data generated:
+product_id_to_category.json
+main_category_to_id.json
+main_id_to_category.json
+sub_category_to_id.json
+sub_id_to_category.json

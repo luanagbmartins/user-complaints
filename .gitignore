@@ -129,7 +129,8 @@ dmypy.json
 .pyre/
 
 # exclude data from source control by default
-/data/
+/data/interim/
+/data/raw/
 
 # Vscode config
 .vscode/
