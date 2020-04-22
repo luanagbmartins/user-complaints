@@ -19,4 +19,4 @@ ENV APP_SETTINGS="config.DevelopmentConfig"
 ENV DATABASE_URL="postgresql:///user-complaints"
 ENV HEROKU_APP_NAME="user-complaints"
 
-CMD ["gunicorn", "user-complaints/app/app:app"]
+CMD ["gunicorn", "user-complaints/app:app"]
