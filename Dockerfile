@@ -1,6 +1,8 @@
 FROM python:3.6.7
 
 COPY ./app /app
+COPY ./data /data
+COPY ./models /models
 WORKDIR /app
 RUN pip install flask gunicorn
 RUN pip install -r requirements.txt
